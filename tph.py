@@ -18,14 +18,14 @@ def get_issues_by_year(year):
 
 def get_chapters_by_issue(a,b):
   #re_chapter = re.compile("href=\"(/content/{}/{}/\d+-?\d*)\"".format(a,b))
-  re_chapter = re.compile("data-apath=\"/ucptph/{}/{}/(\d+\.?\d*)\.atom\"".format(a,b))
+  re_chapter = re.compile("data-apath=\"/ucptph/(\d+\.?\d*)/(\d+\.?\d*)/(\d+\.?\d*)\.atom\"".format(a,b))
   site="tph.ucpress.edu"
   url="/content/{}/{}".format(a,b)
   conn = web.HTTPConnection(site)
   conn.request("GET",url)
   r = conn.getresponse()
   body = r.read().decode("utf8")
-  return list(set([ "http://tph.ucpress.edu/content/{}/{}/{}.full.pdf".format(a,b,x) for x in re_chapter.findall(body)]))
+  return list(set([ "http://tph.ucpress.edu/content/{}/{}/{}.full.pdf".format(y,i,x) for y,i,x in re_chapter.findall(body)]))
 
 def authenticate(user,passwd):
   re_form_id=re.compile("name=\"form_build_id\" +value=\"([^\"]+)\" />\n<input type=\"hidden\" name=\"form_id\" value=\"highwire_user_login\" />",re.S)
