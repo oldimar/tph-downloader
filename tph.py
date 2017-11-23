@@ -47,8 +47,8 @@ def get_chapters(chapters):
       cmd.extend(chapters)
       sp.run(cmd,stdout=outfile, stderr=outfile)
 
-user=input("Entre o nome do usuario: ")
-passwd=input("Entre o password: ")
+user=input("Username: ")
+passwd=input("Password: ")
 authenticate(user,passwd)
 for year in range(1978,2018):
     issues = get_issues_by_year(year)
